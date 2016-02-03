@@ -4,7 +4,7 @@
 
 ## Run debian-swissfr
 ```
-docker pull soriyath:debian-swissfr
+docker pull soriyath/debian-swissfr
 docker run -it debian-swissfr /bin/bash
 ```
 

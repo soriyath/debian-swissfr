@@ -13,7 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 	&& cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime \
 	&& echo "Europe/Zurich" > /etc/timezone \
 	&& DEBIAN_FRONTEND=noninteractive dpkg-reconfigure -f noninteractive tzdata \
-	&& echo -e 'LANG=fr_CH.utf8\nLANGUAGE=fr_CH:fr\nLC_CTYPE="fr_CH.utf8"\nLC_ALL=fr_CH.utf8'>/etc/default/locale 
+	&& printf 'LANG=fr_CH.utf8\nLANGUAGE=fr_CH:fr\nLC_CTYPE="fr_CH.utf8"\nLC_ALL=fr_CH.utf8'>/etc/default/locale 
 
 ENV LANG fr_CH.UTF-8  
 ENV LANGUAGE fr_CH:fr
