@@ -18,3 +18,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update \
 ENV LANG fr_CH.UTF-8  
 ENV LANGUAGE fr_CH:fr
 ENV LC_ALL fr_CH.UTF-8 
+
+# Clean
+RUN DEBIAN_FRONTEND=noninteractive apt-get clean \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
