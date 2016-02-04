@@ -21,5 +21,5 @@ ENV LC_ALL fr_CH.UTF-8
 
 # Clean
 RUN DEBIAN_FRONTEND=noninteractive apt-get clean \
-	&& apt-get autoremove -y \
+	&& apt-get autoremove \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
