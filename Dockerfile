@@ -6,9 +6,13 @@ ENV DEBIAN_FRONTEND noninteractive
 # NB ntp is set in base VM (host on linux hosts, most likely boot2docker on Windows and Mac)
 # Time of the containers is the time of the host machine
 
+# --no-install-recommends by default and disable doc and manpage
+COPY 01norecommend $ROOTFS/etc/apt/apt.conf.d/01norecommend
+COPY 01_nodoc $ROOTFS/etc/dpkg/dpkg.conf.d/01_nodoc
+
 # Set the locale (Debian removed dependency to locale in 2011)
 RUN apt-get update \
-	&& apt-get install -y locales locales-all curl git htop man software-properties-common unzip vim wget \
+	&& apt-get install -y locales curl git htop man software-properties-common unzip vim wget apt-transport-https \
 	&& echo "fr_CH.UTF-8 UTF-8" > /etc/locale.gen \
 	&& locale-gen fr_CH.UTF-8 \
 	&& update-locale LANG=fr_CH.UTF-8 \
@@ -22,20 +26,14 @@ ENV LANG fr_CH.UTF-8
 ENV LANGUAGE fr_CH:fr
 ENV LC_ALL fr_CH.UTF-8 
 
-# supervisor installation && 
-# create directory for child images to store configuration in
+# supervisor installation, create directory for child images to store configuration in
 RUN apt-get -y install supervisor && \
   mkdir -p /var/log/supervisor && \
   mkdir -p /etc/supervisor/conf.d
+COPY supervisor.conf /etc/supervisor.conf
 
-# Upgrade system
-RUN apt-get -y upgrade
-
-# supervisor base configuration
-ADD supervisor.conf /etc/supervisor.conf
-
-# Clean
-RUN apt-get clean \
+RUN apt-get -y upgrade \
+	&& apt-get clean \
 	&& apt-get autoremove \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
