@@ -32,6 +32,11 @@ RUN apt-get -y install supervisor && \
   mkdir -p /etc/supervisor/conf.d
 COPY supervisor.conf /etc/supervisor.conf
 
+# Debian unattended upgrades, comment to deactivate
+RUN apt-get install -y unattended-upgrades apt-listchanges
+COPY 50unattended-upgrades $ROOTFS/etc/apt/apt.conf.d/50unattended-upgrades
+COPY 02periodic $ROOTFS/etc/apt/apt.conf.d/02periodic
+
 RUN apt-get -y upgrade \
 	&& apt-get clean \
 	&& apt-get autoremove \
