@@ -30,7 +30,7 @@ ENV LC_ALL fr_CH.UTF-8
 RUN apt-get -y install supervisor && \
   mkdir -p /var/log/supervisor && \
   mkdir -p /etc/supervisor/conf.d
-COPY supervisor.conf /etc/supervisor.conf
+COPY supervisor.conf /etc/supervisor/supervisor.conf
 
 # Debian unattended upgrades, comment to deactivate
 RUN apt-get install -y unattended-upgrades apt-listchanges
@@ -43,4 +43,4 @@ RUN apt-get -y upgrade \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # default command
-CMD ["supervisord", "-c", "/etc/supervisor.conf"]
+CMD ["supervisord", "-c", "/etc/supervisor/supervisor.conf"]
