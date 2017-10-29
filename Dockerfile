@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM debian:stretch
 MAINTAINER Sumi Straessle
 
 ENV DEBIAN_FRONTEND noninteractive
